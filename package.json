@@ -1,0 +1,24 @@
+{
+  "name": "catro-eixos-conexion",
+  "version": "0.0.1",
+  "description": "Conexiones en catro-eixos",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "author": "Francisco Maseda <frmadem@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "express": "^4.17.1",
+    "mocha": "^6.1.4",
+    "uuid": "^3.3.2"
+  }
+}
