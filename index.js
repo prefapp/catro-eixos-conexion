@@ -6,6 +6,8 @@ module.exports = {
 
         Api: require("./lib/entidades/api.js"),
 
+        Comet: require("./lib/entidades/comet.js"),
+
     }
 
 
