@@ -4,7 +4,7 @@ const {Api} = require("../index.js").entidades;
 
 const server = require("./fixtures/server_json");
 
-describe("Conexion base", function(){
+describe("Objeto api", function(){
     
     let ctl_server;
 

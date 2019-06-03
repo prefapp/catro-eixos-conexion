@@ -1,6 +1,5 @@
 const express = require("express");
 
-const r = express.Router();
 
 const uuid = require("uuid/v4");
 
@@ -8,7 +7,7 @@ const conexiones = {
 
 };
 
-function ahora() { return new Date().now / 1000 | 0 }
+function ahora() { return Date.now() / 1000 | 0 }
 
 class ManejadorCanal{
 
@@ -20,7 +19,7 @@ class ManejadorCanal{
 
         this.res = res;
 
-        this.heartbeat = ahora();
+        this.heartbeatSegs = ahora();
 
         this.__id = 0;
 
@@ -35,10 +34,10 @@ class ManejadorCanal{
 
         this.__h = setInterval(() => {
             
-            if(ahora() - this.heartbeat >= 1000){
+            if(ahora() - this.heartbeatSegs >= 3){
 
                 this.res.status(400);
-                this.res.send("CLOSED");
+                this.res.end();;
 
                 this.terminar();
             }
@@ -47,11 +46,11 @@ class ManejadorCanal{
 
         this.__e = setInterval(() => {
             
-            res.write(JSON.stringify({evento_id: this.__id++}))
+            this.res.write(JSON.stringify({evento_id: this.__id++}))
             
         }, 100)
 
-        res.write(JSON.stringify({uuid: this.uuid}));
+        this.res.write(JSON.stringify({uuid: this.uuid}));
 
         return this;
 
@@ -59,8 +58,9 @@ class ManejadorCanal{
 
     heartbeat(){
 
-        this.heartbeat = ahora();
+        this.heartbeatSegs = ahora();
 
+        this.res.write(JSON.stringify({evento_id: "HEARTBEAT"}));
     }
 
     terminar(){
@@ -74,6 +74,8 @@ class ManejadorCanal{
 
 }
 
+const r = express.Router();
+
 r.post("/", function(req, res){
   
   new ManejadorCanal(req, res).iniciar();
@@ -81,8 +83,8 @@ r.post("/", function(req, res){
 })
 
 r.get("/:id/heartbeat", function(req, res){
-    
-  if(conexiones[req.params["id"]]){
+ 
+  if(!conexiones[req.params["id"]]){
     res.status(404);
     res.send("Not Found.");
   }

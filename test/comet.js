@@ -1,14 +1,16 @@
 const {expect} = require("chai");
 
-const {Api} = require("../index.js").entidades;
+const {Api, Comet} = require("../index.js").entidades;
 
 const server = require("./fixtures/server_json");
 
-describe("Conexion base", function(){
+describe("Conexion comet", function(){
     
     let ctl_server;
 
     let api;
+
+    let comet;
 
     before(function(next){
  
@@ -21,7 +23,7 @@ describe("Conexion base", function(){
     })
 
     it("Se configura una api para canal", function(){
-     
+
         this.timeout(0);   
 
         api = new Api({
@@ -33,6 +35,14 @@ describe("Conexion base", function(){
                 verbo: "get"
 
             },
+
+            "cerrar": {
+
+                "url": "/:id",
+
+                "verbo": "delete",
+
+            }
 
         }, {
         
@@ -55,22 +65,117 @@ describe("Conexion base", function(){
                     }
                 }
 
-            }
+            },
+
+            uri_base: "/canal"
         
         });
         
     })
 
-    it("Se puede abrir un canal", function(next){
+    it("Se puede abrir un canal y controlar su cerrado", function(next){
         
-        next();
+        this.timeout(0);
+
+        comet = new Comet({
+        
+            host: "localhost",
+            puerto: "8888",
+            protocolo: "http",
+            headers: {
+
+                auth: {
+
+                    basic: {
+
+                        usuario: "mi-usuario",
+
+                        password: "mi-secreto"
+
+                    }
+                }
+            }
+        
+        })
+        
+        comet.abrirCanal({
+        
+            url: "/canal/",
+
+            verbo: "post",
+
+            enRespuesta(r){
+
+            },
+
+            enError(r){
+
+                expect(r.respuestaErronea).to.equal(true);
+
+                next();
+            }
+        
+        })
+        
+    })
+
+    it("Se puede controlar el canal comet y recibir eventos", function(next){
+
+        this.timeout(0);
+
+        let mensajes = [];
+
+        let id_canal;
+
+        comet.abrirCanal({
+        
+            url: "/canal",
+
+            verbo: "post",
+
+            enRespuesta(r){
+
+                if(r.esMensajeInicial){
+
+                    id_canal = r.JSON.uuid;
+
+                    console.log(`con ${id_canal}`)
+
+                    api.heartbeat({
+                    
+                        id: id_canal
+
+                    }).then((r) => {
+                     
+                        expect(r.codigoRespuesta).to.equal(true);   
+
+                    })
+                        
+                }
+                else{
+
+                    mensajes.push(r.body);
+
+                }
+            },
+
+            enError(){
+
+                console.log(mensajes)
+
+                next();
+
+            }
+        
+        })
         
     })
 
     after(function(){
-     
+
         ctl_server.cerrar();   
         
+        setTimeout(() => process.exit(0), 100)
     })
     
 })

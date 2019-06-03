@@ -19,7 +19,8 @@ describe("Conexion base", function(){
     })
 
     it("Permite realizar una peticion get", function(){
-     
+ 
+
         this.timeout(0);
 
         return  new ConexionBase({

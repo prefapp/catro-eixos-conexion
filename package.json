@@ -12,6 +12,7 @@
   "author": "Francisco Maseda <frmadem@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "debug": "^4.1.1",
     "request": "^2.88.0"
   },
   "devDependencies": {
