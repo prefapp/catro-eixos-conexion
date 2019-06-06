@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "Conexiones en catro-eixos",
   "main": "index.js",
+  "repository": "https://github.com/prefapp/catro-eixos-conexion.git",
   "directories": {
     "lib": "lib"
   },
