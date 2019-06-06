@@ -2,6 +2,8 @@
 
 ## [unreleased]
 
+## v0.0.3 [06-06-2019]
+
 - corrección de eventos
 - agregado de debug
 
