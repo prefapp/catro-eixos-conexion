@@ -2,6 +2,9 @@
 
 ## [unreleased]
 
+- corrección de eventos
+- agregado de debug
+
 ## v0.0.2 [03-06-2019]
 
 - Agregados canales
