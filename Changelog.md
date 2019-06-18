@@ -2,6 +2,10 @@
 
 ## [unreleased]
 
+## v0.0.4 [19-06-2019]
+
+- Arreglada interpolación de parámetros que tengan ":"
+
 ## v0.0.3 [06-06-2019]
 
 - corrección de eventos
