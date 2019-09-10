@@ -2,6 +2,10 @@
 
 ## [unreleased]
 
+## v0.0.5 [10-09-2019]
+
+- Incluído soporte para querystrings
+
 ## v0.0.4 [19-06-2019]
 
 - Arreglada interpolación de parámetros que tengan ":"
