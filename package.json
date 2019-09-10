@@ -1,6 +1,6 @@
 {
   "name": "catro-eixos-conexion",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Conexiones en catro-eixos",
   "main": "index.js",
   "repository": "https://github.com/prefapp/catro-eixos-conexion.git",
