@@ -22,6 +22,17 @@ module.exports = ({puerto}) => {
             
         })
 
+        app.get("/la-query", function(req, res){
+ 
+            res.json({
+            
+                a: req.query["a"],
+
+                b: req.query["b"]
+            
+            })
+        })
+
         const server = app.listen(puerto);
 
         return {

@@ -48,6 +48,29 @@ describe("Objeto api", function(){
 
                 url: "/api/usuario",
 
+            },
+
+            "queryNormal": {
+
+                verbo: "get",
+
+                url: "/la-query",
+
+                query: {
+                
+                    a: {
+                     
+                        tipo: Number,
+
+                        obligatoria: true
+                    },
+
+                    b: {
+                        tipo: String,
+
+                        obligatoria: true
+                    },
+                }
             }
         
         }, {
@@ -127,6 +150,35 @@ describe("Objeto api", function(){
 
             expect(r.codigoRespuesta).to.equal(200);
             
+        })
+    })
+
+    it("Se pueden enviar parametros en la query_string", function(){
+    
+        this.timeout(0)
+ 
+        return api.queryNormal({
+
+            a: 99,
+
+            b: "cadena"
+        
+        }, {
+
+        
+        }).then((r) => {
+        
+            expect(r.codigoRespuesta).to.equal(200);
+
+            expect(r.esJson).to.equal(true)
+
+            expect(r.JSON).to.deep.equal({
+            
+                a: "99",
+
+                b: "cadena"
+            
+            })
         })
     })
 
