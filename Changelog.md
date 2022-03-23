@@ -2,6 +2,10 @@
 
 ## [unreleased]
 
+## v0.0.6 [23-03-2022]
+
+- Incluído soporte args.body
+
 ## v0.0.5 [10-09-2019]
 
 - Incluído soporte para querystrings
